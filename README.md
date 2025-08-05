@@ -78,11 +78,11 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
   Flask corre pór defecto en el puerto 5000 si desea cambiar el puerto ejecute el siguiente comando:
 
-    flask run --port 6000
+    flask run --port 
 
   Para aceptar peticiones de otros ordenadores de nuestra red lanzaremos el servidor de la siguiente manera:
 
-     flask run --host 0.0.0.0 --port 5000
+     flask run --host  --port 
 
  Nota: para ejecutar una aplicación Flask en modo de depuración:
  

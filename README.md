@@ -36,24 +36,29 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
 ```Entorno Virtual```
 
-5.- Instalar herramientas de entorno virtual con los siguiente comandos:
-
-    apt install python3-pip
-
-      
-    apt install python3-virtualenv
-
 5.- Crear el entorno virtual con el siguiente comando:
- 
-       Python -m venv .venv
-     PARA UBUNTU 22
-       virtualenv .venv
-5.- Activar el entorno virtual con el siguiente comando:
+ Sistema Operativo Windows
 
+
+       Python -m venv .venv
+
+       
+   Sistema Operativo  Linux
+   
+       virtualenv .venv
+
+       
+6.- Activar el entorno virtual con el siguiente comando:
+ Sistema Operativo Windows
+ 
          .\.venv\Scripts\activate
-      PARA UBUNTU 22
+         
+ Sistema Operativo  Linux     
+ 
           source .venv/bin/activate
    ```Actualizar PIP```
+
+   
 6.-  ejecute el siguiente comando:
 
     python.exe -m pip install --upgrade pip

@@ -31,7 +31,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
 4.- Ingrese al directorio principal del Proyecto
 
-     cd Monitoreo_TLPG-LAN
+     cd MONITOREO-TLPG
      
 
 ```Entorno Virtual```
@@ -53,17 +53,15 @@ Los siguientes ajustes deberán realizarse para la configuración:
          .\.venv\Scripts\activate
       PARA UBUNTU 22
           source .venv/bin/activate
+   ```Actualizar PIP```
+6.-  ejecute el siguiente comando:
+
+    python.exe -m pip install --upgrade pip
        
-6.- Desde el directorio principal de este repositorio, ejecute el siguiente comando:
+7.- Desde el directorio principal de este repositorio, ejecute el siguiente comando:
 
      pip install -r requirements.txt
 
-```Actualizar PIP```
-
-7.-  ejecute el siguiente comando:
-
-    python.exe -m pip install --upgrade pip
-     
 
    ```Iniciar el Servidor```
 
@@ -77,6 +75,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
   Para aceptar peticiones de otros ordenadores de nuestra red lanzaremos el servidor de la siguiente manera:
 
-     flask run --host 0.0.0.0
+     flask run --host 0.0.0.0 --port 5000
 
-
+ Nota: para ejecutar una aplicación Flask en modo de depuración:
+     flask run --debug

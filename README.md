@@ -78,4 +78,5 @@ Los siguientes ajustes deberán realizarse para la configuración:
      flask run --host 0.0.0.0 --port 5000
 
  Nota: para ejecutar una aplicación Flask en modo de depuración:
+ 
      flask run --debug

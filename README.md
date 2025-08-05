@@ -15,7 +15,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
 ```Instalar Python```
 
-1.- Python 3.0+ debe estar instalado.
+1.- Python 3.11+ debe estar instalado.
 
 2.- Dirigase al directorio donde desee instalar el repositorio.
 
@@ -25,7 +25,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 3.- Clonar el repositorio
     apt install git
     
-    git clone https://github.com/Monitore1209/Monitoreo_TLPG-LAN.git 
+    git clone https://github.com/Monitore1209/MONITOREO-TLPG.git 
 
     ```Ingresar al  repositorio```
 

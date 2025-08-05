@@ -1,0 +1,12 @@
+Flask==2.2.5
+flask_login
+flask_sqlalchemy
+flask_wtf
+flask_migrate
+sqlalchemy
+marshmallow==3.20.1
+passlib
+password_strength
+apscheduler
+email_validator
+

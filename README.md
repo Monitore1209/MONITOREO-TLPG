@@ -37,6 +37,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 ```Entorno Virtual```
 
 5.- Crear el entorno virtual con el siguiente comando:
+
  Sistema Operativo Windows
 
 
@@ -49,6 +50,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
        
 6.- Activar el entorno virtual con el siguiente comando:
+
  Sistema Operativo Windows
  
          .\.venv\Scripts\activate

@@ -38,41 +38,41 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
 5.- Crear el entorno virtual con el siguiente comando:
 
-       Sistema Operativo Windows
+Sistema Operativo Windows
 
 
        Python -m venv .venv
 
        
-      Sistema Operativo  Linux
+ Sistema Operativo  Linux
    
        virtualenv .venv
 
        
 6.- Activar el entorno virtual con el siguiente comando:
 
-        Sistema Operativo Windows
+ Sistema Operativo Windows
  
          .\.venv\Scripts\activate
          
-        Sistema Operativo  Linux     
+ Sistema Operativo  Linux     
  
           source .venv/bin/activate
    ```Actualizar PIP```
 
    
-6.-  ejecute el siguiente comando:
+7.-  ejecute el siguiente comando:
 
     python.exe -m pip install --upgrade pip
        
-7.- Desde el directorio principal de este repositorio, ejecute el siguiente comando:
+8.- Desde el directorio principal de este repositorio, ejecute el siguiente comando:
 
      pip install -r requirements.txt
 
 
    ```Iniciar el Servidor```
 
-8.- poner en marcha el servidor, ejecute el siguiente comando:
+9.- poner en marcha el servidor, ejecute el siguiente comando:
 
     flask run
 

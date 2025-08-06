@@ -28,7 +28,6 @@ Los siguientes ajustes deberán realizarse para la configuración:
     git clone https://github.com/Monitore1209/MONITOREO-TLPG.git 
 
 
-```Clonar el repositorio```
 
 4.- Ingrese al directorio principal del Proyecto
 
@@ -39,24 +38,24 @@ Los siguientes ajustes deberán realizarse para la configuración:
 
 5.- Crear el entorno virtual con el siguiente comando:
 
- Sistema Operativo Windows
+       Sistema Operativo Windows
 
 
        Python -m venv .venv
 
        
-   Sistema Operativo  Linux
+      Sistema Operativo  Linux
    
        virtualenv .venv
 
        
 6.- Activar el entorno virtual con el siguiente comando:
 
- Sistema Operativo Windows
+        Sistema Operativo Windows
  
          .\.venv\Scripts\activate
          
- Sistema Operativo  Linux     
+        Sistema Operativo  Linux     
  
           source .venv/bin/activate
    ```Actualizar PIP```

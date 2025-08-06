@@ -28,8 +28,7 @@ Los siguientes ajustes deberán realizarse para la configuración:
     git clone https://github.com/Monitore1209/MONITOREO-TLPG.git 
 
 
-
-    ```Ingresar al  repositorio```
+```Clonar el repositorio```
 
 4.- Ingrese al directorio principal del Proyecto
 

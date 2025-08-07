@@ -61,7 +61,7 @@ Sistema Operativo Windows
    ```Actualizar PIP```
 
    
-7.-  ejecute el siguiente comando:
+7.-  ejecute el siguiente comando:SOLO PARA WINDOWS
 
     python.exe -m pip install --upgrade pip
        

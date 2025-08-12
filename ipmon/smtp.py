@@ -1,4 +1,4 @@
-'''Librerias SMTP'''
+'''Biblioteca SMTP'''
 import os
 import sys
 import smtplib
@@ -64,11 +64,11 @@ def configure_smtp():
 @smtp.route("/smtpTest", methods=['POST'])
 @flask_login.login_required
 def smtp_test():
-    '''Enviar correo de prueba SMTP'''
+    '''Send SMTP test email'''
     if request.method == 'POST':
         results = request.form.to_dict()
-        subject = 'IPMON SMTP Test Message'
-        message = 'IPMON SMTP Test Message'
+        subject = 'Mensaje de prueba Sistema de Monitoreo'
+        message = 'Mensaje de prueba Sistema de Monitoreo'
 
         try:
             send_smtp_message(results['recipient'], subject, message)
@@ -83,7 +83,7 @@ def smtp_test():
 # Functions ##############
 ##########################
 def send_smtp_message(recipient, subject, message):
-    '''Enviar mensaje SMTP '''
+    '''Send SMTP message'''
     current_smtp = json.loads(get_smtp_config())
     if not json.loads(get_smtp_configured())['smtp_configured']:
         log.error('Attempting to send SMTP message but SMTP not configured.')

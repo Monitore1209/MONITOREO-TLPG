@@ -15,19 +15,19 @@
             {{ email_form.hidden_tag() }}
             <div class="field">
                 <div class="control">
-                    {{ email_form.email.label(class_="label") }}
+                    {{ email_form.email.label(style="color: #00ddff;") }}
                     {{ email_form.email(class_="input is-medium") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ email_form.email_verify.label(class_="label") }}
+                    {{ email_form.email_verify.label(style="color: #00ddff;") }}
                     {{ email_form.email_verify(class_="input is-medium") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ email_form.password.label(class_="label") }}
+                    {{ email_form.password.label(style="color: #00ddff;") }}
                     {{ email_form.password(class_="input is-medium") }}
                 </div>
             </div>
@@ -40,20 +40,20 @@
             {{ password_form.hidden_tag() }}
             <div class="field">
                 <div class="control">
-                    {{ password_form.current_password.label(class_="label") }}
+                    {{ password_form.current_password.label(style="color: #00ddff;") }}
                     {{ password_form.current_password(class_="input is-medium") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ password_form.new_password.label(class_="label") }}
+                    {{ password_form.new_password.label(style="color: #00ddff;") }}
                     {{ password_form.new_password(class_="input is-medium") }}
                     <p class="help">{{ password_form.new_password.description }}</p>
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ password_form.verify_password.label(class_="label") }}
+                    {{ password_form.verify_password.label(style="color: #00ddff;") }}
                     {{ password_form.verify_password(class_="input is-medium") }}
                 </div>
             </div>
@@ -63,3 +63,4 @@
 </div>
 
 {% endblock %}
+

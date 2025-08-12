@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
 <!-- Agregar dispositivo unico -->
 <div class="column is-8 is-offset-2">
     <div class="box">
@@ -12,7 +11,8 @@
                 <div class="control">
                     {{ form.ip_address.label(class_="label") }}
                     {{ form.ip_address(class_="textarea is-medium", rows="10") }}
-                    <p class="subtitle is-5 has-text-grey-light">Introduzca la dirección IP, el nombre del dispositivo, la ciudad y el tipo de dispositivo</p>
+                    <p class="subtitle is-4 has-text-light">Introduzca la dirección IP, nombre, ciudad, campamento, host anfitrion, Tipo</p>
+                    <p class="subtitle is-4 has-text-light">Ejemplo: 10.150.5.12, Cam Jaula, Quito, Mariana de Jesus, NVR1 MDJ, Camara</p>
                 </div>
             </div>
             <div class="control">

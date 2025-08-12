@@ -1,4 +1,4 @@
-'''Setup Web App'''
+'''Configuración de la aplicación web'''
 import os
 import sys
 
@@ -63,7 +63,7 @@ def setup():
         db.session.add(poll)
 
         # Setup STMP server
-        smtp = SmtpServer(smtp_server=form.smtp_server.data, smtp_port=form.smtp_port.data, smtp_sender=form.smtp_sender.data)
+        smtp = SmtpServer(smtp_server=form.smtp_server.data, smtp_port=form.smtp_port.data, smtp_sender=form.smtp_sender.data,  smtp_password=form.smtp_password.data)
         db.session.add(smtp)
 
         # Add web themes

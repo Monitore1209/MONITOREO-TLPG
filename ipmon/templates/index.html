@@ -3,32 +3,32 @@
 {% block content %}
 
 <section id="expand-me">
-  <!-- Expand Button -->
+  <!-- Botón de expansión -->
   <button class="button is-small is-pulled-right" id="expand" onClick="fullscreenToggle();">
     <span class="icon is-small">
       <i class="fa fa-window-maximize" id="expander"></i>
     </span>
   </button>
 
-  <!-- Conteo de hosts  -->
+  <!-- Conteo de dispositivos  -->
   <div class="box has-text-centered">
     <nav class="level">
       <div class="level-item">
         <div>
-          <p class="heading">Total de Dispositivos</p>
-          <p class="title" id="total-hosts"></p>
+          <p class="heading" style="font-size: 1rem;">Total de Dispositivos</p>
+          <p class="title" id="total-hosts" style="font-size: 2rem;"></p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Dispositivos En-Linea</p>
-          <p class="title has-text-success" id="available-hosts"></p>
+          <p class="heading" style="font-size: 1rem;">Dispositivos En-Linea</p>
+          <p class="title has-text-success" id="available-hosts" style="font-size:2rem;"></p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Dispositivos sin conexión</p>
-          <p class="title has-text-danger" id="unavailable-hosts"></p>
+          <p class="heading" style="font-size: 1rem;">Dispositivos En-Linea</p>
+          <p class="title has-text-danger" id="unavailable-hosts" style="font-size:2rem;"></p>
         </div>
       </div>
     </nav>
@@ -63,16 +63,19 @@
             { "data": "hostname", "title": "Login" },
             { "data": "ip_address", "title": "Dirección IP" },
             { "data": "ciudad", "title": "Ciudad" },
-            { "data": "dispositivo", "title": "Dispositivo" },
+            { "data": "cto", "title": "CTO" },
+            { "data": "dispositivo", "title": "Host" },
+            { "data": "tipo", "title": "Tipo Disp" },
             { "data": "last_poll", "title": "Ultima Actualización" },
             { "data": "status", "title": "Estado" },
             {
               data: "id",
-              title: "Opciones",
+              title: "ICMP",
               render: function (data, type, row) {
-              return `<button class="button is-small is-info" onclick="forzarPing(${data}, '${row.ip_address}')">
-                    <i class="fas fa-bolt"></i> Ping
-                   </button>`;
+                return `<button class="button is-small" style="background-color: transparent; border: none; color: white;"
+                onclick="forzarPing(${data}, '${row.ip_address}')">
+                  <i class="fas fa-desktop"></i>
+                </button>`;
               }
             }
           ],
@@ -95,13 +98,20 @@
           // Aquí accedes al input de búsqueda general y le agregas el placeholder
           var $searchInput = $('#ip-status_filter input');
           $searchInput.attr('placeholder', 'Buscar en la tabla...');
-        },
+          },
         
         
           'rowCallback': function (row, data, index) {
-            var status_col = $(row).find('td:eq(5)')
-            var last_poll_col = $(row).find('td:eq(4)')
+            var status_col = $(row).find('td:eq(7)')
+            var last_poll_col = $(row).find('td:eq(6)')
             var host = data['hostname']
+          
+          // Aquí cambio el estilo de los encabezados
+        $('#ip-status thead th').css({
+          'color': '#FFD700',
+          'background-color': '#666666',
+          'border-bottom': '2px solid #444'
+        });
 
             //Cambiar el estado de fila para usar círculos hacia arriba/abajo y colores de estado
             status_col.empty();
@@ -244,3 +254,4 @@
 
 
 {% endblock %}
+

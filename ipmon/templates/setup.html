@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-
-
 <div class="column is-8 is-offset-2">
     <section class="hero is-info">
         <div class="hero-body">
@@ -23,7 +20,7 @@
 
         <!-- Cuenta Administrador -->
         <div class="box">
-            <p class="title is=3">Cuenta de Administrador</p>
+            <p class="title is-3">Cuenta de Administrador</p>
             <p class="subtitle is-5 has-text-grey-light">
                     La cuenta de administrador posee privilegios para agregar y administrar dispositivos, definir parámetros de consulta, entre otras funciones.<br>
                     Los visitantes no autenticados únicamente podrán visualizar el estado de los hosts en la página principal.
@@ -57,14 +54,14 @@
 
         <!-- Configuración Consultas -->
         <div class="box">
-            <p class="title is=3">Configuración Consultas</p>
+            <p class="title is-3">Configuración Consultas</p>
             <p class="subtitle is-5 has-text-grey-light">
                 El sondeo de dispositivos se ejecuta en intervalos definidos por el temporizador de configuración. Cada consulta realiza un comando ping rápido a cada dispositivo para verificar su estado. El sistema mantiene un historial del estado de las consultas para cada dispositivo durante el número de días especificado en la configuración.  
 	        </p>
                <div class="field"> 
                    <div class="control">
                     {{ form.poll_interval.label(class_="label", style="color: #00ddff;") }}
-                    {{ form.poll_interval(class_="input is-large", id="polling-interval") }}
+                    {{ form.poll_interval(class_="input is-medium", id="polling-interval") }}
                     <p class="subtitle is-5 has-text-grey-light">Frecuencia de consulta (en segundos) entre cada solicitud realizada al dispositivo.</p>
                  </div>
 
@@ -72,7 +69,7 @@
             <div class="field">
                 <div class="control">
                     {{ form.retention_days.label(class_="label", style="color: #00ddff;") }}   
-                    {{ form.retention_days(class_="input is-large", id="history-retention") }}
+                    {{ form.retention_days(class_="input is-medium", id="history-retention") }}
                     <p class="subtitle is-5 has-text-grey-light">Período de retención (en días) de los registros de consulta generados por cada dispositivo.</p>
                 </div>
 
@@ -80,32 +77,44 @@
         </div>
 
         <!-- SMTP -->
-        <div class="box" style="display:none;">
-            <p class="title is=3">Configuración SMTP (opcional)</p>
-            <p class="subtitle is=5">
-                La configuración SMTP es opcional. Si SMTP está configurado, las alertas se enviarán al correo electrónico de la cuenta de administrador Dirección cuando los hosts tienen un cambio de estado (abajo->arriba, arriba->abajo). Deje los campos vacíos para dejarlos sin configurar.
+        <div class="box" style="display:box;">
+            <p class="title is-3">Configuración SMTP (opcional)</p>
+            <p class="subtitle is-5">
+                Si SMTP está configurado, las alertas se enviarán al correo electrónico del administrador cuando los hosts cambien de estado (de DOWN a UP / UP a DOWN).
             </p>
             <div class="field">
                 <div class="control">
-                    {{ form.smtp_server.label(class_="label") }}
-                    {{ form.smtp_server(class_="input is-large", id="smtp-server") }}
+                    {{ form.smtp_server.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.smtp_server(class_="input is-medium", id="smtp-server") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ form.smtp_port.label(class_="label") }}
-                    {{ form.smtp_port(class_="input is-large", id="smtp-port") }}
+                    {{ form.smtp_port.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.smtp_port(class_="input is-medium", id="smtp-port") }}
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    {{ form.smtp_sender.label(class_="label") }}
-                    {{ form.smtp_sender(class_="input is-large", id="smtp-sender") }}
+                    {{ form.smtp_sender.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.smtp_sender(class_="input is-medium", id="smtp-sender") }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{ form.smtp_user.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.smtp_user(class_="input is-medium", id="smtp-user") }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{ form.smtp_password.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.smtp_password(class_="input is-medium", id="smtp-password") }}
                 </div>
             </div>
         </div>
-
-        <!-- Submit -->
+   
+        <!-- Enviar -->
         <div class="box">
             <div class="control">
                 {{ form.submit(class_="button is-info is-medium") }}

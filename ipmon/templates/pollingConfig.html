@@ -5,14 +5,14 @@
 <div class="column is-8 is-offset-2">
     <div class="box">
         <p class="title">Configuración actual de consultas</p>
-        <table class="table is-striped">
+        <table class="table is-striped" style="margin-left:auto; margin-right:auto; text-align:center;">
             <tr>
-                <th>Intervalo de Consulta</th>
-                <th>Días de almacenamiento de consultas</th>
+                <th style="color: #FFFF00; text-align:center;">Intervalo de Consulta</th>
+                <th style="color: #FFFF00; text-align:center;">Días de almacenamiento de consultas</th>
             </tr>
             <tr>
-                <td>{{ polling_config['poll_interval'] }}</td>
-                <td>{{ polling_config['history_truncate_days'] }}</td>
+                <td style="text-align:center;">{{ polling_config['poll_interval'] }}</td>
+                <td style="text-align:center;">{{ polling_config['history_truncate_days'] }}</td>
             </tr>
         </table>
     </div>
@@ -22,7 +22,7 @@
             {{ form.hidden_tag() }}
             <div class="field">
                 <div class="control">
-                    {{ form.interval.label(class_="label") }}
+                    {{ form.interval.label(class_="label", style="color: #00ddff;") }}
                     {{ form.interval(class_="input is-large", id="polling-interval") }}
                     <p class="help">Tiempo en segundos entre consultas</p>
                 </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    {{ form.retention_days.label(class_="label") }}
+                    {{ form.retention_days.label(class_="label", style="color: #00ddff;") }}
                     {{ form.retention_days(class_="input is-large", id="history-retention") }}
                     <p class="help">Número de días que se mantendra la información  de consultas para cada dispositivo</p>
                 </div>

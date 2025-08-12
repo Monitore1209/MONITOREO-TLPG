@@ -1,4 +1,4 @@
-'''Alerts Module'''
+'''Modulo Alertas'''
 import os
 import sys
 import json
@@ -14,7 +14,7 @@ from ipmon.smtp import send_smtp_message
 
 
 def update_host_status_alert_schedule(alert_interval):
-    '''Updates the PHost Status Change Alert schedula via APScheduler'''
+    '''Actualiza la programación de la alerta de cambio de estado del host mediante APScheduler'''
     # Attempt to remove the current scheduler
     try:
         scheduler.remove_job('Host Status Change Alert')
@@ -54,7 +54,7 @@ def _host_status_alerts_threaded():
                 try:
                     send_smtp_message(
                         recipient=recipients,
-                        subject='IPMON - Host Status Change Alert',
+                        subject='MONITOREO - Alerta de cambio de estado del servidor/dispositivo',
                         message=message
                     )
                 except Exception as exc:
@@ -66,12 +66,18 @@ def _host_status_alerts_threaded():
 def _get_alert_status_message(alert):
     with app.app_context():
         host = Hosts.query.filter_by(id=alert.host_id).first()
-        message = '<b>{} [{}]</b>: Status changed from <b>"{}"</b> to <b>"{}"</b> at {}<br><br>'.format(
-            host.hostname,
-            host.ip_address,
+        message = (
+            '<b>{}: {},IP:{} ciudad: {}, CTO: {}, del {}</b>: '
+            'Cambio de estado de <b>"{}"</b> a <b>"{}"</b> at {}<br><br>'
+        ).format(
+            host.tipo,   
+            host.hostname,       # Ej: Camara prueba Gosseal
+            host.ip_address,     # Ej: 192.168.100.24
+            host.ciudad,         # Ej: Quito
+            host.cto,            # Ej: MDJ
+            host.dispositivo,    # Ej: del RED SC
             host.previous_status,
             host.status,
             host.last_poll
         )
-
         return message

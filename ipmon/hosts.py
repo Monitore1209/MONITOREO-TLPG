@@ -1,4 +1,4 @@
-'''Hosts Module'''
+'''Modulo de HOSTS'''
 import json
 import os
 import sys
@@ -47,7 +47,9 @@ def add_hosts():
                 ip_address = parts[0].strip()
                 hostname = parts[1].strip() if len(parts) > 1 else ""
                 ciudad = parts[2].strip() if len(parts) > 2 else ""
-                dispositivo = parts[3].strip() if len(parts) > 3 else ""
+                cto = parts[3].strip() if len(parts) > 3 else ""
+                dispositivo = parts[4].strip() if len(parts) > 4 else ""
+                tipo = parts[5].strip() if len(parts) > 5 else ""
 
                 # Validar dirección IP
                 try:
@@ -56,16 +58,16 @@ def add_hosts():
                     flash(f'{ip_address} no es una dirección IP válida.', 'danger')
                     continue
 
-                # Verificar si ya existe
+                 # Verificar si ya existe
                 if Hosts.query.filter_by(ip_address=ip_address).first():
                     flash(f'La dirección IP {ip_address} ya existe!.', 'danger')
                     continue
-
-                # Encolar el proceso
+                
+                 # Encolar el proceso
                 threads.append(
-                    pool.apply_async(_add_hosts_threaded, (ip_address, hostname, ciudad, dispositivo))
+                    pool.apply_async(_add_hosts_threaded, (ip_address, hostname, ciudad, cto, dispositivo, tipo))
                 )
-
+            
             pool.close()
             pool.join()
 
@@ -75,9 +77,9 @@ def add_hosts():
                     db.session.add(new_host)
                     flash(f'Añadida exitosamente {new_host.ip_address} ({new_host.hostname})', 'success')
                 except Exception as exc:
-                    flash(f'Fallo al agregar {new_host.ip_address}', 'danger')
+                    flash(f'Fallo al agregar host. Error: {exc}', 'danger')
                     log.error(f'Failed to add host to database. Exception: {exc}')
-                    continue
+                    continue         
 
             try:
                 db.session.commit()
@@ -96,7 +98,7 @@ def add_hosts():
 @hosts.route('/updateHosts', methods=['GET', 'POST'])
 @flask_login.login_required
 def update_hosts():
-    '''Update Hosts'''
+    '''Actualizar dispositivos'''
     if request.method == 'GET':
         return render_template('updateHosts.html', hosts=json.loads(get_all_hosts()))
     elif request.method == 'POST':
@@ -109,8 +111,12 @@ def update_hosts():
                 host.ip_address = results['ip_address']
             if results['ciudad']:
                 host.ciudad = results['ciudad']
+            if results['cto']:
+                host.ciudad = results['cto']
             if results['dispositivo']:
                 host.dispositivo = results['dispositivo']
+            if results['tipo']:
+                host.ciudad = results['tipo']
             if results['alerts'] != str(host.alerts_enabled):
                 host.alerts_enabled = False if results['alerts'] == 'False' else True
             db.session.commit()
@@ -144,14 +150,16 @@ def delete_host():
 # Private Functions ##
 ######################
 
-def _add_hosts_threaded(ip_address, hostname, ciudad, dispositivo):
+def _add_hosts_threaded(ip_address, hostname, ciudad, cto, dispositivo, tipo):
     status, current_time, resolved_hostname = poll_host(ip_address, new_host=True)
     hostname = hostname if hostname else resolved_hostname
     return Hosts(
         ip_address=ip_address,
         hostname=hostname,
         ciudad=ciudad,
+        cto=cto,
         dispositivo=dispositivo,
+        tipo = tipo,
         status=status,
         last_poll=current_time
     )
@@ -167,9 +175,9 @@ def forzar_ping(host_id):
 
     try:
         if platform.system().lower() == 'windows':
-            comando = ['ping', '-n', '1', host.ip_address]
+            comando = ['ping', '-n', '1', '-w', '1000', host.ip_address]  # -w 1000 = timeout 1 seg
         else:
-            comando = ['ping', '-c', '1', host.ip_address]
+            comando = ['ping', '-c', '1', '-W', '1', host.ip_address]  # -W 1 = timeout 1 seg
 
         response = subprocess.run(
             comando,
@@ -177,11 +185,22 @@ def forzar_ping(host_id):
             text=True
         )
 
-        if response.returncode == 0:
+        salida = response.stdout.lower()
+
+        if platform.system().lower() == 'windows':
+            # En Windows buscamos "ttl=" en la salida
+            exito = "ttl=" in salida
+        else:
+            # En Linux confiamos en returncode
+            exito = (response.returncode == 0)
+
+        if exito:
             return jsonify({"success": True, "message": f"Ping exitoso a {host.ip_address}"}), 200
         else:
             return jsonify({"success": False, "message": f"❌ Error al hacer ping a {host.ip_address}"}), 400
 
     except Exception as e:
         return jsonify({"success": False, "message": f"Excepción al hacer ping: {e}"}), 500
+
+
 

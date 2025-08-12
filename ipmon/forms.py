@@ -1,4 +1,4 @@
-'''Web Forms'''
+'''Formularios web'''
 import os
 import sys
 
@@ -25,7 +25,9 @@ class FirstTimeSetupForm(FlaskForm):
     enable_smtp = BooleanField('Enable SMTP Alerts')
     smtp_server = StringField('Servidor')
     smtp_port = StringField('Puerto')
-    smtp_sender = StringField('Dirección remitente')
+    smtp_sender = StringField('Correo del remitente')
+    smtp_user = StringField('Usuario SMTP')
+    smtp_password = PasswordField('Contraseña SMTP')
     submit = SubmitField('Enviar')
 
 
@@ -56,14 +58,16 @@ class UpdateEmailForm(FlaskForm):
 
 
 class SmtpConfigForm(FlaskForm):
-    server = StringField('Server', validators=[DataRequired(message="Server required")])
-    port = IntegerField('Port', validators=[DataRequired(message="Port required"), NumberRange(min=0, message="Invalid port number")])
-    sender = StringField('Sender Address', validators=[DataRequired(message="Sender address required"), Email(message="Invalid email address")])
+    server = StringField('Servidor', validators=[DataRequired(message="Servidor requerido")])
+    port = IntegerField('Puerto', validators=[DataRequired(message="Puerto requerido"), NumberRange(min=0, message="Invalid port number")])
+    sender = StringField('Correo del remitente', validators=[DataRequired(message="Correo del remitente requerido"), Email(message="Invalid email address")])
+    user = StringField('Usuario SMTP')
+    password = PasswordField('Contraseña SMTP')
     submit = SubmitField('Actualizar')
 
 
 class AddHostsForm(FlaskForm):
-    ip_address = TextAreaField('Dirección IP', validators=[DataRequired(message="Ingrese la información")])
+    ip_address = TextAreaField('Información del Dispositivo', validators=[DataRequired(message="Ingrese la información")])
     submit = SubmitField('Agregar')
 
 

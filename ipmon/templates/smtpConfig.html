@@ -80,7 +80,7 @@
         <p class="title">SMTP Test</p>
         <form method="POST" action="{{ url_for('smtp.smtp_test') }}" onsubmit="showLoader();">
             <div class="field">
-                <label class="label">Dirección de correo electrónico del destinatario</label>
+                <label class="label" style="color: #00ddff;">Dirección de correo electrónico del destinatario</label>
                 <div class="control">
                     <input class="input is-medium" type="email" name="recipient" required>
                 </div>
@@ -101,7 +101,7 @@
 
 {% if smtp['smtp_server'] %}
 <script>
-    // Update placeholders to current SMTP config values
+    // Actualizar los marcadores de posición con los valores actuales de configuración SMTP
     $(document).ready(function () {
         $("#smtp-server").attr("placeholder", "{{ smtp['smtp_server'] }}")
         $("#smtp-port").attr("placeholder", "{{ smtp['smtp_port'] }}")

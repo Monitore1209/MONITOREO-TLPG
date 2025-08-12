@@ -1,4 +1,4 @@
-'''Host Polling Lib'''
+'''Biblioteca de sondeo del host'''
 import os
 import sys
 import platform
@@ -17,28 +17,39 @@ from ipmon.api import get_all_hosts, get_host, get_polling_config, get_poll_hist
 
 
 def poll_host(host, new_host=False, count=3):
-    '''Poll host via ICMP ping to see if it is up/down'''
+    """Hacer sondeo al host vía ping ICMP para verificar si está activo/inactivo"""
     hostname = None
 
     if platform.system().lower() == 'windows':
-        command = ['ping', '-n', str(count), '-w', '1000', host]
+        command = ['ping', '-n', str(count), '-w', '1000', host]  # timeout 1 seg
     else:
         command = ['ping', '-c', str(count), '-W', '1', host]
 
-    response = subprocess.call(
-        command,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
+    try:
+        # Capturamos salida para analizarla
+        response = subprocess.run(
+            command,
+            capture_output=True,
+            text=True
+        )
 
-    if new_host:
-        hostname = get_hostname(host)
+        salida = response.stdout.lower()
 
-    return ('Up' if response == 0 else 'Down', time.strftime('%Y-%m-%d %T'), hostname)
+        if platform.system().lower() == 'windows':
+            exito = "ttl=" in salida
+        else:
+            exito = (response.returncode == 0)
 
+        if new_host:
+            hostname = get_hostname(host)
+
+        return ('Up' if exito else 'Down', time.strftime('%Y-%m-%d %T'), hostname)
+
+    except Exception as e:
+        return ('Down', time.strftime('%Y-%m-%d %T'), hostname)
 
 def update_poll_scheduler(poll_interval):
-    '''Updates the Poll Hosts schedula via APScheduler'''
+    '''Actualiza la programación de sondeo de hosts mediante APScheduler'''
     # Attempt to remove the current scheduler
     try:
         scheduler.remove_job('Poll Hosts')
@@ -49,12 +60,12 @@ def update_poll_scheduler(poll_interval):
 
 
 def add_poll_history_cleanup_cron():
-    '''Adds crong job for poll history cleanup'''
+    '''Agrega crong job para la limpieza del historial de sondeo'''
     scheduler.add_job(id='Poll History Cleanup', func=_poll_history_cleanup_task, trigger='cron', hour='0', minute='30')
 
 
 def get_hostname(ip_address):
-    '''Gets the FQDN from an IP Address'''
+    '''Obtiene el FQDN a partir de una dirección IP'''
     try:
         hostname = socket.getfqdn(ip_address)
     except socket.error:

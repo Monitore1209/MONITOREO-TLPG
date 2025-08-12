@@ -1,4 +1,4 @@
-'''Main Web Application'''
+'''Aplicación web principal'''
 import os
 import sys
 import json
@@ -46,7 +46,7 @@ def favicon():
 
 @main.route('/')
 def index():
-    '''Index page'''
+    '''Pagina Principal'''
     if not os.path.exists(config['Database_Path']):
         return redirect(url_for('setup.setup'))
     return render_template('index.html', refresh_interval=10000)
@@ -55,7 +55,7 @@ def index():
 @main.route("/account")
 @flask_login.login_required
 def account():
-    '''User Account'''
+    '''Cuenta de Usuario'''
     password_form = UpdatePasswordForm()
     email_form = UpdateEmailForm()
     return render_template('account.html', password_form=password_form, email_form=email_form)
@@ -64,7 +64,7 @@ def account():
 @main.route('/setTheme', methods=['GET', 'POST'])
 @flask_login.login_required
 def set_theme():
-    '''Set Theme'''
+    '''Seleccionar Tema'''
     if request.method == 'GET':
         return render_template('setTheme.html', themes=json.loads(get_web_themes()))
     elif request.method == 'POST':
@@ -78,16 +78,16 @@ def set_theme():
                 else:
                     theme_obj.active = False
             db.session.commit()
-            flash('Successfully updated theme', 'success')
+            flash('Tema actualizado correctamente', 'success')
         except Exception:
-            flash('Failed to update theme', 'danger')
+            flash('Error al actualizar el tema', 'danger')
     return redirect(url_for('main.set_theme'))
 
 
 @main.route('/configurePolling', methods=['GET', 'POST'])
 @flask_login.login_required
 def configure_polling():
-    '''Poll Interval'''
+    '''Intervalo de sondeo'''
     form = PollingConfigForm()
     if request.method == 'GET':
         polling_config = json.loads(get_polling_config())
@@ -103,14 +103,14 @@ def configure_polling():
                     polling_config.history_truncate_days = int(form.retention_days.data)
                 db.session.commit()
             except Exception:
-                flash('Failed to update polling interval', 'danger')
+                flash('Error al actualizar el intervalo de sondeo', 'danger')
                 return redirect(url_for('main.configure_polling'))
 
             # Update scheduled polling interval
             if form.interval.data:
                 update_poll_scheduler(form.interval.data)
 
-            flash('Successfully updated polling interval', 'success')
+            flash('Intervalo de sondeo actualizado correctamente', 'success')
         else:
             for dummy, errors in form.errors.items():
                 for error in errors:

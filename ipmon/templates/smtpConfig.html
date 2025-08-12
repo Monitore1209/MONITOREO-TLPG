@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<!-- Update SMTP Form -->
+<!-- Actualizar SMTP  -->
 <div class="column is-8 is-offset-2">
-    <div class="box">
-        <p class="title">Current SMTP Confugration</p>
+    <div id="smtp-current" class="box">
+        <p class="title">Configuración SMTP actual</p>
         {% if smtp['smtp_server'] %}
         <table class="table is-striped">
             <tr>
@@ -14,72 +14,89 @@
             </tr>
             <tr>
                 <th>SMTP Port</th>
-                <td>{{ smtp['smtp_port'] }}</td>
+            <td>{{ smtp['smtp_port'] }}</td>
             <tr>
-                <th>SMTP Sender Address</th>
+                <th>Destinatario</th>
                 <td>{{ smtp['smtp_sender'] }}</td>
             </tr>
         </table>
         {% else %}
-        <p>SMTP not configured</p>
+        <p>SMTP no configurado</p>
         {% endif %}
-        <form method="POST" action="{{ url_for('smtp.configure_smtp') }}" novalidate></form>
     </div>
+     <form method="POST" action="{{ url_for('smtp.configure_smtp') }}" onsubmit="return confirm('¿Seguro que desea eliminar la configuración SMTP?');">
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="action" value="delete">
+            <button type="submit" class="button is-danger">Eliminar Configuración SMTP</button>
+    </form>
+
 
     <div class="box">
-        <p class="title">Update SMTP Configuration</p>
+        <p class="title">Actualizar configuración SMTP</p>
         <form method="POST" action="{{ url_for('smtp.configure_smtp') }}" novalidate>
             {{ form.hidden_tag() }}
             <div class="field">
                 <div class="control">
-                    {{ form.server.label(class_="label") }}
-                    {{ form.server(class_="input is-large", id="smtp-server") }}
+                    {{ form.server.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.server(class_="input is-medium", id="smtp-server") }}                   
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    {{ form.port.label(class_="label") }}
-                    {{ form.port(class_="input is-large", id="smtp-port") }}
+                    {{ form.port.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.port(class_="input is-medium", id="smtp-port") }}
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    {{ form.sender.label(class_="label") }}
-                    {{ form.sender(class_="input is-large", id="smtp-sender") }}
+                    {{ form.sender.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.sender(class_="input is-medium", id="smtp-sender") }}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    {{ form.user.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.user(class_="input is-medium", id="smtp-user") }}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    {{ form.password.label(class_="label", style="color: #00ddff;") }} 
+                    {{ form.password(class_="input is-medium", id="smtp-password") }}
                 </div>
             </div>
 
             <div class="control">
                 {{ form.submit(class_="button is-info is-medium") }}
             </div>
+        </form>        
+    </div>
+    
+    <div class="box">
+        <p class="title">SMTP Test</p>
+        <form method="POST" action="{{ url_for('smtp.smtp_test') }}" onsubmit="showLoader();">
+            <div class="field">
+                <label class="label">Dirección de correo electrónico del destinatario</label>
+                <div class="control">
+                    <input class="input is-medium" type="email" name="recipient" required>
+                </div>
+            </div>
+             <div class="control">
+                {% if smtp['smtp_server'] and smtp['smtp_port'] and smtp['smtp_sender'] %}
+                <button class="button is-block is-info is-medium">Send</button>
+                {% else %}
+                <button class="button is-block is-info is-medium" disabled>Enviar</button>
+                {% endif %}
+            </div>
         </form>
     </div>
 
-    <div class="box">
-            <p class="title">SMTP Test</p>
-            <form method="POST" action="{{ url_for('smtp.smtp_test') }}" onsubmit="showLoader();">
-                <div class="field">
-                    <label class="label">Recipient Email Address</label>
-                    <div class="control">
-                        <input class="input is-medium" type="email" name="recipient" required>
-                    </div>
-                </div>
-                <div class="control">
-                    {% if smtp['smtp_server'] and smtp['smtp_port'] and smtp['smtp_sender'] %}
-                    <button class="button is-block is-info is-medium">Send</button>
-                    {% else %}
-                    <button class="button is-block is-info is-medium" disabled>Send</button>
-                    {% endif %}
-                </div>
-            </form>
-        </div>
-</div>
-
-<!-- Test SMTP -->
-<div class="column is-6 is-offset-3">
-    
+<!-- Probar SMTP -->
+<div class="column is-6 is-offset-3">    
 </div>
 
 {% if smtp['smtp_server'] %}
@@ -89,6 +106,8 @@
         $("#smtp-server").attr("placeholder", "{{ smtp['smtp_server'] }}")
         $("#smtp-port").attr("placeholder", "{{ smtp['smtp_port'] }}")
         $("#smtp-sender").attr("placeholder", "{{ smtp['smtp_sender'] }}")
+        $("#smtp-user").attr("placeholder", "{{ smtp['smtp_user'] }}")
+        $("#smtp-password").attr("placeholder", "{{ smtp['smtp_password'] }}")
     })
 </script>
 {% endif %}

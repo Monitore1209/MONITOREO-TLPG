@@ -1,57 +1,57 @@
-'''Schemas used for APIs'''
+'''Esquemas utilizados para APIs'''
 from marshmallow import Schema
 
 class UsersSchema(Schema):
-    '''Users schema'''
+    '''Esquema de usuarios'''
     class Meta:
         '''Metadata'''
         fields = ('id', 'username', 'password', 'email', 'date_created', 'alerts_enabled')
 
 
 class HostsSchema(Schema):
-    '''Hosts Schema'''
+    '''Esquema de Hosts'''
     class Meta:
         '''Meta'''
-        fields = ('id', 'ip_address', 'hostname', 'ciudad', 'dispositivo', 'status', 'last_poll', 'status_change_alert', 'previous_status', 'alerts_enabled')
+        fields = ('id', 'ip_address', 'hostname', 'ciudad' , 'cto', 'dispositivo', 'tipo', 'status', 'last_poll', 'status_change_alert', 'previous_status', 'alerts_enabled')
 
 
 class PollHistorySchema(Schema):
-    '''Poll History Schema'''
+    '''Esquema del historial de sondeos'''
     class Meta:
         '''Meta'''
         fields = ('id', 'host_id', 'poll_time', 'poll_status', 'date_created')
 
 
 class HostAlertsSchema(Schema):
-    '''Host Alerts Schema'''
+    '''Esquema de alertas del host'''
     class Meta:
         '''Meta'''
         fields = ('id', 'hostname', 'ip_address', 'host_status', 'poll_time', 'alert_cleared', 'date_created', 'host_id')
 
 
 class PollingConfigSchema(Schema):
-    '''Polling Schema'''
+    '''Esquema de sondeo'''
     class Meta:
         '''Meta'''
         fields = ('id', 'poll_interval', 'history_truncate_days')
 
 
 class SmtpConfigSchema(Schema):
-    '''SMTP Schema'''
+    '''Esquema SMTP'''
     class Meta:
         '''Meta'''
-        fields = ('id', 'smtp_server', 'smtp_port', 'smtp_sender')
+        fields = ('id', 'smtp_server', 'smtp_port', 'smtp_sender','smtp_user','smtp_password'  )
 
 
 class WebThemesSchema(Schema):
-    '''Web Theme Schema'''
+    '''Esquema Temas Web '''
     class Meta:
         '''Meta'''
         fields = ('id', 'theme_name', 'theme_path', 'active')
 
 
 class Schemas():
-    '''Static methods for accessing schemas'''
+    '''Métodos estáticos para acceder a esquemas'''
 
     @staticmethod
     def users(many=True):
@@ -136,3 +136,4 @@ class Schemas():
             WebThemesSchema: Schema object
         """      
         return WebThemesSchema(many=many)
+

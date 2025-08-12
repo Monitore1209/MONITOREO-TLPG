@@ -78,12 +78,12 @@
             $("#notifications").css({"display": "none"})
         }
 
-        // Get Alerts
+        // Obtener Alerts
         function getAlerts() {
             
         }
 
-        // Display Alerts
+        // Mostrar Alertas
         async function displayAlerts() {
             var title='Host Alerts'
             var body='<table id="alerts-table" class="table is-striped"></table>'
@@ -118,9 +118,7 @@
             });
             await modalShow();
         }
-
     </script>
-
 </head>
 
 <body>
@@ -187,6 +185,7 @@
                                 <a class="navbar-link">Configuración</a>
                                 <div class="navbar-dropdown">
                                     <a href="{{ url_for('main.configure_polling') }}" class="navbar-item">Intervalo</a>
+                                    <a href="{{ url_for('smtp.configure_smtp') }}" class="navbar-item">SMTP</a>
                                     <a href="{{ url_for('main.set_theme') }}" class="navbar-item">Tema</a>
                                 </div>
                             </div>
@@ -272,11 +271,10 @@
     </div>
 
     <!-- Notificaciones de ping -->
-<div id="toast" class="notification is-hidden" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
-  <button class="delete" onclick="hideToast()"></button>
-  <span id="toastMessage">Mensaje aquí</span>
-</div>
-
+    <div id="toast" class="notification is-hidden" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+        <button class="delete" onclick="hideToast()"></button>
+        <span id="toastMessage">Mensaje aquí</span>
+    </div>
 </body>
 
 </html>

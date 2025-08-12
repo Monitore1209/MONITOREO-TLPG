@@ -1,4 +1,4 @@
-'''Database File'''
+'''Archivo de base de datos'''
 import os
 import sys
 
@@ -11,7 +11,7 @@ from ipmon import db
 # Models ################
 ##########################
 class Users(db.Model):
-    '''Users table'''
+    '''Tabla de Usuarios'''
     __tablename__ = 'users'
     __table_args__ = {'extend_existing': True}
 
@@ -24,7 +24,7 @@ class Users(db.Model):
 
 
 class Hosts(db.Model):
-    '''Hosts'''
+    '''Tabla de Hosts'''
     __tablename__ = 'hosts'
     __table_args__ = {'extend_existing': True}
 
@@ -32,7 +32,9 @@ class Hosts(db.Model):
     ip_address = db.Column(db.String(length=15), nullable=False, unique=True)
     hostname = db.Column(db.String(length=100))
     ciudad= db.Column(db.String(length=100))
+    cto= db.Column(db.String(length=100))
     dispositivo = db.Column(db.String(length=100))
+    tipo = db.Column(db.String(length=100))
     status = db.Column(db.String(length=10))
     last_poll = db.Column(db.String(length=20))
     previous_status = db.Column(db.String(length=10))
@@ -42,7 +44,7 @@ class Hosts(db.Model):
 
 
 class PollHistory(db.Model):
-    '''Poll history for hosts'''
+    '''Tabla Historial de sondeo de dispositivos'''
     __tablename__ = 'pollHistory'
     __table_args__ = {'extend_existing': True}
 
@@ -54,7 +56,7 @@ class PollHistory(db.Model):
 
 
 class HostAlerts(db.Model):
-    '''Alerts For Host Status Change'''
+    '''Tabla Alertas por cambio de estado del host'''
     __tablename__ = 'hostAlerts'
     __table_args__ = {'extend_existing': True}
 
@@ -69,7 +71,7 @@ class HostAlerts(db.Model):
 
 
 class Polling(db.Model):
-    '''Polling Config'''
+    '''Tabla Configuración consultas'''
     __tablename__ = 'polling'
     __table_args__ = {'extend_existing': True}
 
@@ -79,7 +81,7 @@ class Polling(db.Model):
 
 
 class SmtpServer(db.Model):
-    '''SMTP Server'''
+    '''Tabla configuración SMTP'''
     __tablename__ = 'smtp'
     __table_args__ = {'extend_existing': True}
 
@@ -87,10 +89,12 @@ class SmtpServer(db.Model):
     smtp_server = db.Column(db.String(length=100), nullable=False)
     smtp_port = db.Column(db.Integer, nullable=False)
     smtp_sender = db.Column(db.String(length=100), nullable=False)
+    smtp_user = db.Column(db.String(128))
+    smtp_password = db.Column(db.String(128))
 
 
 class WebThemes(db.Model):
-    '''Web CSS Themese'''
+    '''Temas CSS para la web '''
     __tablename__ = 'webThemes'
     __table_args__ = {'extend_existing': True}
 
@@ -98,3 +102,4 @@ class WebThemes(db.Model):
     theme_name = db.Column(db.String(length=100), nullable=False)
     theme_path = db.Column(db.String(length=100), nullable=False)
     active = db.Column(db.Boolean, default=False)
+

@@ -51,16 +51,16 @@ class UpdatePasswordForm(FlaskForm):
 
 
 class UpdateEmailForm(FlaskForm):
-    email = StringField('Nuevo Email', validators=[DataRequired(message="Nuevo email requerido"), Email(message="Invalid email address")])
-    email_verify = StringField('Confirmar email', validators=[DataRequired(message="Confirmación email requerida"), Email(message="Invalid email address")])
+    email = StringField('Nuevo Email', validators=[DataRequired(message="Nuevo email requerido"), Email(message="Dirección de correo electrónico no válida")])
+    email_verify = StringField('Confirmar email', validators=[DataRequired(message="Confirmación email requerida"), Email(message="Dirección de correo electrónico no válida")])
     password = PasswordField('Contraseña', validators=[DataRequired(message="Contraseña requerida")])
     submit = SubmitField('Actualizar')
 
 
 class SmtpConfigForm(FlaskForm):
     server = StringField('Servidor', validators=[DataRequired(message="Servidor requerido")])
-    port = IntegerField('Puerto', validators=[DataRequired(message="Puerto requerido"), NumberRange(min=0, message="Invalid port number")])
-    sender = StringField('Correo del remitente', validators=[DataRequired(message="Correo del remitente requerido"), Email(message="Invalid email address")])
+    port = IntegerField('Puerto', validators=[DataRequired(message="Puerto requerido"), NumberRange(min=0, message="Puerto Invalido")])
+    sender = StringField('Correo del remitente', validators=[DataRequired(message="Correo del remitente requerido"), Email(message="Dirección de correo electrónico inválida")])
     user = StringField('Usuario SMTP')
     password = PasswordField('Contraseña SMTP')
     submit = SubmitField('Actualizar')
